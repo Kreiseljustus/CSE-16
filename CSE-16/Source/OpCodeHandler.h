@@ -1,13 +1,15 @@
 #pragma once
 
-#include "memory.h"
+class CPU;
+
+#include "OpCodes.h"
 
 class OpCodeHandler {
 public:
-	OpCodeHandler(Memory& memory);
+	OpCodeHandler(CPU* cpu);
 
-	void handleOpCode();
+	void handleOpCode(OpCode opcode);
 
 private:
-	Memory& memory;
+	CPU* cpu;
 };

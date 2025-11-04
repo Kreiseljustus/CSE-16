@@ -1,6 +1,6 @@
 #pragma once
 
-//This includes old opcodes from CSE-8 to allow backwards compatibility
+//This includes old opcodes from CSE1 to allow backwards compatibility
 enum OpCode {
     LDA = 0x01, //Load a value into register A
     LDB = 0x02, //Load a value into register B

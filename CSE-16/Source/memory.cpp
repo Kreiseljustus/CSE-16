@@ -34,13 +34,12 @@ void Memory::Write8(uint16_t addr, uint8_t val) {
 }
 
 void Memory::Write16(uint16_t addr, uint16_t val) {
-    if (!VALID_W_MEM_ADDR(addr) && !VALID_W_MEM_ADDR(addr + 1)) {
+    if (!VALID_W_MEM_ADDR(addr) || !VALID_W_MEM_ADDR(addr + 1)) {
         CPPOutErr("Write access violation at " << addr);
-
         return;
     }
-    uint8_t lowByte = val & 0xFF;
-    uint8_t highByte = val >> 8;
+    uint8_t lowByte = static_cast<uint8_t>(val & 0xFF);
+    uint8_t highByte = static_cast<uint8_t>(val >> 8);
 
     mem[addr] = lowByte;
     mem[addr + 1] = highByte;
