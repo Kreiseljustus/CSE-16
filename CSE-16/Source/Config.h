@@ -9,5 +9,4 @@
 #define CPPOutErr(str) do { if(enableCPPOutput) {std::cerr << str << std::endl;}} while(0)
 #define CPPOut(str) do {if(enableCPPOutput) {std::cerr << str << std::endl;}} while(0)
 
-#define MEMORY_SIZE 512
-#define PROGRAM_MEM_SIZE 256
+#define MEMORY_SIZE 65536 //2^16

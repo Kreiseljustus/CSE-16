@@ -3,8 +3,8 @@
 #include <cstdint>
 #include "Config.h"
 
-#define VALID_W_MEM_ADDR(addr) ((addr) >= (PROGRAM_MEM_SIZE) && (addr) < (MEMORY_SIZE))
-#define VALID_R_MEM_ADDR(addr) ((addr) < (MEMORY_SIZE))
+#define VALID_W_MEM_ADDR(addr) ((addr) <= (MEMORY_SIZE))
+#define VALID_R_MEM_ADDR(addr) ((addr) <= (MEMORY_SIZE))
 
 class Memory {
 public:

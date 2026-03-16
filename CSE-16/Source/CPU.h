@@ -78,7 +78,7 @@ public:
 			}
 		}
 		else {
-			CPPOut("Program is 16-Bit");
+			CPPOut("Program is 16-Bit. Size = " << program.size());
 			for (size_t i = offset; i < program.size(); i++) {
 				memory.mem[i - offset] = program[i];
 			}
