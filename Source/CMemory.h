@@ -7,6 +7,7 @@
 class MemoryPrinter;
 
 class Memory {
+	friend class MemoryPrinter;
 public:
 	Memory() = default;
 
