@@ -11,4 +11,44 @@ workspace "CSE-16"
 OutputDir = "build/%{cfg.buildcfg}"
 
 group "CSE-16"
-	include "CSE-16/Build-CSE-16.lua"
+	project "CSE-16"
+   kind "ConsoleApp"
+   language "C++"
+   cppdialect "C++23"
+   targetdir "Binaries/%{cfg.buildcfg}"
+   staticruntime "off"
+
+   files { "Source/**.h", "Source/**.cpp" }
+
+   includedirs
+   {
+      "Source"
+   }
+
+   libdirs {
+
+   }
+
+   targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")
+   objdir ("../Binaries/Intermediates/" .. OutputDir .. "/%{prj.name}")
+
+   filter "system:windows"
+       systemversion "latest"
+       defines { }
+
+   filter "configurations:Debug"
+       defines { "DEBUG"}
+       runtime "Debug"
+       symbols "On"
+
+   filter "configurations:Release"
+       defines { "RELEASE"}
+       runtime "Release"
+       optimize "On"
+       symbols "On"
+
+   filter "configurations:Dist"
+       defines { "DIST"}
+       runtime "Release"
+       optimize "On"
+       symbols "Off"
