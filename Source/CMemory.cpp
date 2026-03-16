@@ -16,3 +16,15 @@ void Memory::Write16Bit(uint16_t value, uint16_t address) {
 	memory[address] = value & 0xFF;
 	memory[address + 1] = (value >> 8) & 0xFF;
 }
+
+void Memory::LoadProgram(const uint8_t* program, uint16_t size, uint16_t offset) {
+	if (offset + size > MAX_MEM) {
+		CSEWARN("Program exceeds available memory!");
+		CSEWARN("Failed to load program!");
+		return;
+	}
+
+	for (uint16_t i = 0; i < size; i++) {
+		memory[offset + i] = program[i];
+	}
+}
