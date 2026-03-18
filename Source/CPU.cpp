@@ -87,7 +87,7 @@ void CPU::Step() {
 	//Outputs a memory addresses value in the console interpreted as a ASCII char
 	//[mem address][unused]
 	case OUT: {
-
+		CSEDEBUG("OUT reading from address: 0x" << std::hex << arg1);
 		std::cout << static_cast<char>(memory.Read8Bit(arg1));
 
 		break;

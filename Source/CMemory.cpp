@@ -1,5 +1,9 @@
 #include "CMemory.h"
 
+#include <vector>
+#include <fstream>
+#include "Debug.h"
+
 uint8_t Memory::Read8Bit(uint16_t address) const {
 	return memory[address];
 }
@@ -27,4 +31,30 @@ void Memory::LoadProgram(const uint8_t* program, uint16_t size, uint16_t offset)
 	for (uint16_t i = 0; i < size; i++) {
 		memory[offset + i] = program[i];
 	}
+}
+
+void Memory::LoadProgram(const char* filePath) {
+    std::ifstream file(filePath, std::ios::binary);
+    if (!file.is_open()) {
+        CSEWARN("Could not open file: " << filePath);
+        return;
+    }
+
+    // check magic header
+    uint8_t magic[2];
+    file.read(reinterpret_cast<char*>(magic), 2);
+    if (magic[0] != 0xFE || magic[1] != 0x10) {
+        CSEWARN("Invalid magic header! Is this a CSE16 binary?");
+        return;
+    }
+
+    // read remaining bytes into memory at offset 0
+    std::vector<uint8_t> buffer{
+        std::istreambuf_iterator<char>(file),
+        std::istreambuf_iterator<char>()
+    };
+
+    LoadProgram(buffer.data(), static_cast<uint16_t>(buffer.size()), 0);
+
+    CSEDEBUG("Loaded " << buffer.size() << " bytes from " << filePath);
 }
