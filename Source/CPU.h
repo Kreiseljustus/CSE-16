@@ -4,7 +4,8 @@
 
 #include "OpCodes.h"
 #include "CMemory.h"
-#include "Debug.h"
+
+class MemoryPrinter;
 
 struct Flags {
 	bool zero		= false;
@@ -14,8 +15,8 @@ struct Flags {
 
 class CPU {
 public:
-	CPU(Memory& memory, MemoryPrinter* printer = nullptr)
-		: memory(memory), printer(printer), A(0), B(0), C(0), D(0), PC(0), SP(0xFFFF) {}
+	CPU(Memory& memory)
+		: memory(memory), A(0), B(0), C(0), D(0), PC(0), SP(0xFFFF) {}
 
 	void Step();
 
@@ -36,7 +37,5 @@ private:
 
 	Memory& memory;
 
-	//Unused
-	//Replace with a register debugger thing
-	MemoryPrinter* printer;
+	friend class MemoryPrinter;
 };

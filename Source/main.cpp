@@ -1,18 +1,22 @@
 #include <iostream>
+#include <algorithm>
 
 #include "CMemory.h"
 #include "CPU.h"
 #include "Debug.h"
 
-#include <algorithm>
+#include "Utils.h"
 
 int main() {
 	Memory* memory = new Memory();
 
-	MemoryPrinter printer(*memory);
 	CPU* cpu = new CPU(*memory);
+	MemoryPrinter printer(*memory, *cpu);
 
-    memory->LoadProgram("program.bin");
+	if (!memory->LoadProgram("program.bin")) {
+		CSEWARN("Failed to open program!");
+		return -1;
+	}
     CSEDEBUG("First byte: 0x" << std::hex << (int)memory->Read8Bit(0));
 
 	printer.StartSession();
@@ -25,13 +29,7 @@ int main() {
 
 		printer.EndSession();
 
-		std::cout << "Done running program!" << std::endl;
-		std::cout << "Load program.bin in current working directory? (You can change the program now)" << std::endl;
-		std::cout << "[Warning] The current memory will stay! Only the program memory will be overwritten (starting at adress 0-program size" << std::endl;
-		std::cout << "[Warning] If your program is big enough you might overwrite data!" << std::endl;
-		std::cout << "[Warning] This will also overwrite the current Memory.bin debug output with this programs actions!!!" << std::endl;
-
-		std::cout << "Y/N (yes/no)" << std::endl;
+		printProgramHelp();
 
 		std::string answer;
 		std::cin >> answer;
@@ -69,5 +67,6 @@ int main() {
 		}
 	}
 
+	delete cpu;
 	delete memory;
 }

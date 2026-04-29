@@ -33,11 +33,11 @@ void Memory::LoadProgram(const uint8_t* program, uint16_t size, uint16_t offset)
 	}
 }
 
-void Memory::LoadProgram(const char* filePath) {
+bool Memory::LoadProgram(const char* filePath) {
     std::ifstream file(filePath, std::ios::binary);
     if (!file.is_open()) {
         CSEWARN("Could not open file: " << filePath);
-        return;
+        return false;
     }
 
     // check magic header
@@ -45,7 +45,7 @@ void Memory::LoadProgram(const char* filePath) {
     file.read(reinterpret_cast<char*>(magic), 2);
     if (magic[0] != 0xFE || magic[1] != 0x10) {
         CSEWARN("Invalid magic header! Is this a CSE16 binary?");
-        return;
+        return false;
     }
 
     // read remaining bytes into memory at offset 0
@@ -57,4 +57,5 @@ void Memory::LoadProgram(const char* filePath) {
     LoadProgram(buffer.data(), static_cast<uint16_t>(buffer.size()), 0);
 
     CSEDEBUG("Loaded " << buffer.size() << " bytes from " << filePath);
+    return true;
 }

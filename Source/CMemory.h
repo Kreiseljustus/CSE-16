@@ -20,7 +20,7 @@ public:
 	void Write16Bit(uint16_t value, uint16_t address);
 
 	void LoadProgram(const uint8_t* program, uint16_t size, uint16_t offset);
-	void LoadProgram(const char* filePath);
+	bool LoadProgram(const char* filePath);
 private:
 	uint8_t memory[MAX_MEM]{};
 };

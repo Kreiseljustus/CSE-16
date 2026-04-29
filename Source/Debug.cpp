@@ -8,6 +8,7 @@ MemoryPrinter::~MemoryPrinter() {
 void MemoryPrinter::StartSession() {
 	file = std::ofstream(DEBUG_WRITE_PATH, std::ios::binary | std::ios::out);
 	file.write("sessionstart", 12);
+	file.write(MemSessFormatVersion, sizeof(MemSessFormatVersion));
 	file.write(reinterpret_cast<const char*>(mem.memory), MAX_MEM);
 	std::memcpy(prevMem, mem.memory, MAX_MEM);
 	deltaStep = 0;
@@ -34,6 +35,17 @@ void MemoryPrinter::WriteDeltaMemory() {
 		}
 	}
 
+	writeReg(cpu.A);
+	writeReg(cpu.B);
+	writeReg(cpu.C);
+	writeReg(cpu.D);
+
+	file.write("ST", 2);
+	file.write(reinterpret_cast<const char*>(&cpu.SP), sizeof(cpu.SP));
+
+	file.write("PC", 2);
+	file.write(reinterpret_cast<const char*>(&cpu.PC), sizeof(cpu.PC));
+
 	deltaStep++;
 }
 
@@ -42,4 +54,9 @@ void MemoryPrinter::EndSession() {
 	file.close();
 
 	session = false;
+}
+
+void MemoryPrinter::writeReg(uint16_t regValue) {
+	file.write("REG", 3);
+	file.write(reinterpret_cast<const char*>(&regValue), sizeof(regValue));
 }
