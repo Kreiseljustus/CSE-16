@@ -21,6 +21,8 @@ int main() {
 
 	printer.StartSession();
 
+	printer.WriteDeltaMemory();
+
 	while (true) {
 		while (!cpu->halted) {
 			cpu->Step();

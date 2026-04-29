@@ -17,36 +17,31 @@ void MemoryPrinter::StartSession() {
 }
 
 void MemoryPrinter::WriteDeltaMemory() {
-	if (!session) { CSEWARN("Tried to write delta memory without an ongoing session! Use MemoryPrinter::StartSession()"); return; }
-	bool writtenStep = false;
+    if (!session) { CSEWARN("..."); return; }
 
-	for (int i = 0; i < MAX_MEM; i++) {
-		if (mem.memory[i] != prevMem[i]) {
-			if (!writtenStep) {
-				file.write("STEP", 4);
-				file.write(reinterpret_cast<const char*>(&deltaStep), sizeof(deltaStep));
-				writtenStep = true;
-			}
+    file.write("STEP", 4);
+    file.write(reinterpret_cast<const char*>(&deltaStep), sizeof(deltaStep));
 
-			file.write(reinterpret_cast<const char*>(&i), sizeof(i));
-			file.write(reinterpret_cast<const char*>(&mem.memory[i]), 1);
+    for (int i = 0; i < MAX_MEM; i++) {
+        if (mem.memory[i] != prevMem[i]) {
+            file.write(reinterpret_cast<const char*>(&i), sizeof(i));
+            file.write(reinterpret_cast<const char*>(&mem.memory[i]), 1);
+            prevMem[i] = mem.memory[i];
+        }
+    }
 
-			prevMem[i] = mem.memory[i];
-		}
-	}
+    writeReg(cpu.A);
+    writeReg(cpu.B);
+    writeReg(cpu.C);
+    writeReg(cpu.D);
 
-	writeReg(cpu.A);
-	writeReg(cpu.B);
-	writeReg(cpu.C);
-	writeReg(cpu.D);
+    file.write("ST", 2);
+    file.write(reinterpret_cast<const char*>(&cpu.SP), sizeof(cpu.SP));
 
-	file.write("ST", 2);
-	file.write(reinterpret_cast<const char*>(&cpu.SP), sizeof(cpu.SP));
+    file.write("PC", 2);
+    file.write(reinterpret_cast<const char*>(&cpu.PC), sizeof(cpu.PC));
 
-	file.write("PC", 2);
-	file.write(reinterpret_cast<const char*>(&cpu.PC), sizeof(cpu.PC));
-
-	deltaStep++;
+    deltaStep++;
 }
 
 void MemoryPrinter::EndSession() {
