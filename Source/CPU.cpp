@@ -111,6 +111,13 @@ void CPU::Step() {
 
 		break;
 	}
+	//Jumps to a memory address and continues execution there
+	//[memory address][unused]
+	case JMP: {
+		PC = arg1;
+
+		break;
+	}
 	//Stops processing
 	//[unused][unused]
 	case HLT: {

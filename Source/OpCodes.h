@@ -14,6 +14,7 @@ enum OpCode : uint8_t {
 	OUT,
 	STORE,
 	LDMEM,
+	JMP,
 
 	HLT = 0xFF
 };
