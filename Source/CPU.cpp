@@ -159,6 +159,18 @@ void CPU::Step() {
 		GetRegister(arg1) = memory.Read16Bit(SP);
 		break;
 	}
+	//Increments the value in the register by one
+	//[register index]
+	case INC: {
+		GetRegister(arg1) += 1;
+		break;
+	}
+	//Decrements the value in the register by one
+	//[register index]
+	case DEC: {
+		GetRegister(arg1) -= 1;
+		break;
+	}
 	//Stops processing
 	//[unused][unused]
 	case HLT: {

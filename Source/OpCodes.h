@@ -20,6 +20,8 @@ enum OpCode : uint8_t {
 	MOV,
 	PUSH,
 	POP,
+	INC,
+	DEC,
 
 	HLT = 0xFF
 };
