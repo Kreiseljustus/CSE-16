@@ -18,6 +18,8 @@ enum OpCode : uint8_t {
 	LDPTR,
 	STPTR,
 	MOV,
+	PUSH,
+	POP,
 
 	HLT = 0xFF
 };

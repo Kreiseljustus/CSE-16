@@ -145,6 +145,20 @@ void CPU::Step() {
 		GetRegister(arg1) = GetRegister(arg2);
 		break;
 	}
+	//Pushes a register to the stack
+	//[register index][unused]
+	case PUSH: {
+		memory.Write16Bit(GetRegister(arg1), SP);
+		SP -= 2;
+		break;
+	}
+	//Pops the top value of the stack into a register
+	//[register index]
+	case POP: {
+		SP += 2;
+		GetRegister(arg1) = memory.Read16Bit(SP);
+		break;
+	}
 	//Stops processing
 	//[unused][unused]
 	case HLT: {
