@@ -118,6 +118,33 @@ void CPU::Step() {
 
 		break;
 	}
+	//Loads a registers with a value from a memory address thats stored in another register
+	//Example:
+	//LD B 0x1000
+	//LDPTR A B ; A = memory[0x1000]
+	//DESTINATION [register index] SOURCE [register index (mem address)]
+	case LDPTR: {
+		uint16_t addr = GetRegister(arg2);
+		GetRegister(arg1) = memory.Read16Bit(addr);
+		break;
+	}
+	//Stores a value from a register into a memory address thats stored in another register
+	//Example:
+	//LD B 0x1000
+	//LD A 42
+	//STPTR B A ; memory[0x1000] = 42
+	//DESTINATION [register index (mem address)] VALUE [register index]
+	case STPTR: {
+		uint16_t addr = GetRegister(arg1);
+		memory.Write16Bit(GetRegister(arg2), addr);
+		break;
+	}
+	//Copies a registers value into another
+	//DESTINATION [register index] SOURCE [register index]
+	case MOV: {
+		GetRegister(arg1) = GetRegister(arg2);
+		break;
+	}
 	//Stops processing
 	//[unused][unused]
 	case HLT: {
@@ -133,6 +160,13 @@ OpCode CPU::FetchNextInstruction() {
 	return static_cast<OpCode>(memory.Read8Bit(PC++));
 }
 
+/*
+	Returns a reference to the register based on index
+	A = 0
+	B = 1
+	C = 2
+	D = 3
+*/
 uint16_t& CPU::GetRegister(uint16_t index) {
 	switch (index) {
 	case 0: return A;

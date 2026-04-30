@@ -15,6 +15,9 @@ enum OpCode : uint8_t {
 	STORE,
 	LDMEM,
 	JMP,
+	LDPTR,
+	STPTR,
+	MOV,
 
 	HLT = 0xFF
 };
