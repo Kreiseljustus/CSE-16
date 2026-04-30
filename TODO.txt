@@ -9,5 +9,3 @@ XOR
 NOT
 SHL
 SHR
-INC
-DEC
