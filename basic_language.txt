@@ -1,0 +1,31 @@
+
+struct someData {
+	int x;
+	int y;
+	char* name;
+}
+
+void printData(someData a) {
+	print(a.x);
+}
+
+int main(int* argc, char* argv) {
+	int a = 3;
+	int* b = &a;
+	
+	testData = someData;
+	testData.x = 4;
+	testData.y = 5;
+	testData.name = malloc(5)
+	
+	memcopy(testData.name, "Test");
+	
+	
+	if(a == 4) {
+		a--;
+	}
+	
+	
+	
+	return 0;
+}
