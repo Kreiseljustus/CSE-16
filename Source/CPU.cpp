@@ -171,6 +171,18 @@ void CPU::Step() {
 		GetRegister(arg1) -= 1;
 		break;
 	}
+	//Shifts a register bitwise to the left
+	//[register index]
+	case SHL: {
+		GetRegister(arg1) = GetRegister(arg1) << 1;
+		break;
+	}
+	//Shifts a register bitwise to the right
+	//[register index]
+	case SHR: {
+		GetRegister(arg1) = GetRegister(arg1) >> 1;
+		break;
+	}
 	//Stops processing
 	//[unused][unused]
 	case HLT: {

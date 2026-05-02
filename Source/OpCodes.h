@@ -22,6 +22,8 @@ enum OpCode : uint8_t {
 	POP,
 	INC,
 	DEC,
+	SHL,
+	SHR,
 
 	HLT = 0xFF
 };
