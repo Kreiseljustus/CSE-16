@@ -28,6 +28,9 @@ enum OpCode : uint8_t {
 	XOR,
 	OR,
 	AND,
+	CMP,
+	JLT,
+	JGT,
 
 	HLT = 0xFF
 };

@@ -11,6 +11,9 @@ struct Flags {
 	bool zero		= false;
 	bool carry		= false;
 	bool negative	= false;
+	bool overflow	= false;
+	bool greater	= false;
+	bool less		= false;
 };
 
 class CPU {

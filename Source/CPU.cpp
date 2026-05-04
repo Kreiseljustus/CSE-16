@@ -207,6 +207,32 @@ void CPU::Step() {
 		A = GetRegister(arg1) & GetRegister(arg2);
 		break;
 	}
+	//Compares two numbers and updates flags. Doesnt save result
+	//[register index][register index]
+	case CMP: {
+		uint16_t reg1 = GetRegister(arg1);
+		uint16_t reg2 = GetRegister(arg2);
+		uint16_t result = reg1 - reg2;
+
+		flags.zero = (result == 0);
+		flags.negative = (result & 0x8000);
+		flags.carry = (reg2 > reg1);
+		flags.overflow = ((reg1 ^ reg2) & (reg1 ^ result) & 0x8000) != 0;
+		flags.less = flags.negative != flags.overflow;
+		flags.greater = !flags.zero && !flags.less;
+
+		break;
+	}
+	//Jump when less flag is true
+	//[MAddr]
+	case JLT: {
+		if (flags.less) PC = arg1;
+		break;
+	}
+	case JGT: {
+		if (flags.greater) PC = arg1;
+		break;
+	}
 	//Stops processing
 	//[unused][unused]
 	case HLT: {

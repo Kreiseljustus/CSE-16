@@ -1,5 +1,2 @@
 CALL
 RET
-CMP
-JLT
-JGT
