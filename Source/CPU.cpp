@@ -204,6 +204,8 @@ OpCode CPU::FetchNextInstruction() {
 	B = 1
 	C = 2
 	D = 3
+	SP = 4
+	BP = 5
 */
 uint16_t& CPU::GetRegister(uint16_t index) {
 	switch (index) {
@@ -211,6 +213,8 @@ uint16_t& CPU::GetRegister(uint16_t index) {
 	case 1: return B;
 	case 2: return C;
 	case 3: return D;
+	case 4: return SP;
+	case 5: return BP;
 	default:
 		CSEWARN("Invalid register index: " << index);
 		CSEWARN("Using A as fallback, this might cause unexpected behaviour!");

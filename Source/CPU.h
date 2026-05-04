@@ -16,7 +16,7 @@ struct Flags {
 class CPU {
 public:
 	CPU(Memory& memory)
-		: memory(memory), A(0), B(0), C(0), D(0), PC(0), SP(0xFFFF) {}
+		: memory(memory), A(0), B(0), C(0), D(0), PC(0), SP(0xFFFF), BP(0xFFFF) {}
 
 	void Step();
 
@@ -32,6 +32,7 @@ private:
 	uint16_t A, B, C, D;
 	uint16_t PC;
 	uint16_t SP;
+	uint16_t BP;
 
 	Flags flags;
 
