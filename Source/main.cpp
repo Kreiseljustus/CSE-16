@@ -7,13 +7,25 @@
 
 #include "Utils.h"
 
-int main() {
+std::string programPath;
+
+int main(int argc, char* argv[]) {
+	for (int index = 0; index < argc; index++) {
+		if (strcmp(argv[index], "--inputPath") == 0) {
+			if (index + 1 < argc) {
+				programPath = argv[index + 1];
+			}
+		}
+	}
+
+	if (programPath.empty()) programPath = "program.bin";
+
 	Memory* memory = new Memory();
 
 	CPU* cpu = new CPU(*memory);
 	MemoryPrinter printer(*memory, *cpu);
 
-	if (!memory->LoadProgram("program.bin")) {
+	if (!memory->LoadProgram(programPath.c_str())) {
 		CSEWARN("Failed to open program!");
 		return -1;
 	}
