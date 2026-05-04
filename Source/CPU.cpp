@@ -183,6 +183,30 @@ void CPU::Step() {
 		GetRegister(arg1) = GetRegister(arg1) >> 1;
 		break;
 	}
+	//Bitwise NOT
+	//[register index]
+	case NOT: {
+		GetRegister(arg1) = ~GetRegister(arg1);
+		break;
+	}
+	//Bitwise XOR, ST in A
+	//[register index][register index]
+	case XOR: {
+		A = GetRegister(arg1) ^ GetRegister(arg2);
+		break;
+	}
+	//Bitwise OR, ST in A
+	//[register index][register index]
+	case OR: {
+		A = GetRegister(arg1) | GetRegister(arg2);
+		break;
+	}
+	//Bitwise AND, ST in A
+	//[register index][register index]
+	case AND: {
+		A = GetRegister(arg1) & GetRegister(arg2);
+		break;
+	}
 	//Stops processing
 	//[unused][unused]
 	case HLT: {

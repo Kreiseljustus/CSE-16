@@ -24,6 +24,10 @@ enum OpCode : uint8_t {
 	DEC,
 	SHL,
 	SHR,
+	NOT,
+	XOR,
+	OR,
+	AND,
 
 	HLT = 0xFF
 };

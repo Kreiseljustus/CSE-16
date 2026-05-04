@@ -3,7 +3,3 @@ RET
 CMP
 JLT
 JGT
-AND
-OR
-XOR
-NOT
