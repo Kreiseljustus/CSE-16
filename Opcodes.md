@@ -1,7 +1,7 @@
 # Opcodes
 
 ## Info
-* RIndex -> Register Index from 0 - 3 representing registers A - D
+* RIndex -> Register Index from 0 - 5 representing registers A - D, Stack Pointer and Base Pointer
 * MAddr -> Memory Address
 * Value -> Immediate value known at assembly
 * RLocation -> Location in which the "output" of a opcode ends up. Can reference the type of an argument, a register or the opcode has no "output"
@@ -20,7 +20,7 @@
 | STORE | RIndex | MAddr | STORE | Arg2
 | SUBSTRACT | RIndex | RIndex | SUB| A
 | JUMP | MAddr | - | JMP | -
-| LOAD FROM POINTER | RIndex | MAddr | LDPTR | Arg1
+| LOAD FROM POINTER | RIndex | RIndex | LDPTR | Arg1
 | STORE TO POINTER | MAddr | RIndex | STPTR | Arg2
 | MOVE | RIndex | RIndex | MOV | Arg1
 | PUSH | RIndex | - | PUSH | Stack
