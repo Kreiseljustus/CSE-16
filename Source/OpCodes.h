@@ -31,6 +31,8 @@ enum OpCode : uint8_t {
 	CMP,
 	JLT,
 	JGT,
+	CALL,
+	RET,
 
 	HLT = 0xFF
 };

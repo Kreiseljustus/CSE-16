@@ -229,8 +229,27 @@ void CPU::Step() {
 		if (flags.less) PC = arg1;
 		break;
 	}
+	//Jump when greate flag is true
+	//[MAddr]
 	case JGT: {
 		if (flags.greater) PC = arg1;
+		break;
+	}
+	//Push return value for RET and jump to function
+	//[MAddr]
+	case CALL: {
+		memory.Write16Bit(PC, SP);
+		SP -= 2;
+
+		PC = arg1;
+
+		break;
+	}
+	//Returns to the return address of the current function. Stack frame needs to be in correct state
+	//[unused]
+	case RET: {
+		SP += 2;
+		PC = memory.Read16Bit(SP);
 		break;
 	}
 	//Stops processing
