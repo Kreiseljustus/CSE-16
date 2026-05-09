@@ -1,17 +1,1 @@
 Write BP using MemoryPrinter
-
-Documentation:
-CMD Args
-Endianess
-Flags
-Registers
-Add description to opcode table
-Put mneumonic first in opcode table
-
-Show example assembly program
-
-Advise to clone assembler too and use cmd args to debug faster
-
-Link to Assembler and MemSess Viewer
-Explain MemSess file format
-Explain Config.h
